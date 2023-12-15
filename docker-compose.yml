@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  fastapi:
+    build: backend/
+    ports: 
+      - 8008:8000
+    env_file:
+      - .env
+    container_name: play-with-llm-backend
+    deploy:
+          resources:
+            reservations:
+              devices:
+                - driver: nvidia
+                  count: 1
+                  capabilities: [gpu]
+  # streamlit:
+  #   build: frontend/
+  #   depends_on:
+  #     - fastapi
+  #   ports: 
+  #       - 8501:8501
+  #   container_name: kilm-hometest-frontend
